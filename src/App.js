@@ -91,26 +91,34 @@ class Form extends React.Component {
         e.preventDefault();
         const service = new DataCaller(),
             data = await service.fetchData(this.state.username);
-        this.props.onSearchFinish(data.data);
+        this
+            .props
+            .onSearchFinish(data.data);
+        this.setState({username: ''})
     }
     render() {
         return (
             <form
                 action=""
-                onSubmit={this.handleSubmit.bind(this)}
+                onSubmit={this
+                .handleSubmit
+                .bind(this)}
                 style={{
                 margin: '20px'
             }}>
                 <label htmlFor="search">
                     username:
                     <input
-                        onChange={this.handleOnChange.bind(this)}
+                        onChange={this
+                        .handleOnChange
+                        .bind(this)}
                         name="search"
                         type="text"
                         style={{
                         lineHeight: '22px',
                         margin: '20px'
-                    }}/></label>
+                    }}
+                        value={this.state.username}/></label>
                 <button
                     type="submit"
                     style={{
@@ -123,13 +131,14 @@ class Form extends React.Component {
 //CardList part for multiple card here based on data
 class CardList extends React.Component {
     render() {
-        return (this.props.users.map(d => <Card {...d}/>));
+        return (this.props.users.map(d => <Card key={d.id} {...d}/>));
     }
 }
 class Card extends React.Component {
     render() {
         return (
             <div
+                key={this.props.id}
                 className='card'
                 style={{
                 maxWidth: '500px',
@@ -174,11 +183,19 @@ class App extends React.Component {
     }
     handleSearchFinish(data) {
         this.setState({
-            users: this.state.users.concat(data)
+            users: this
+                .state
+                .users
+                .concat(data)
         });
     }
     render() {
-        return (<> <Form onSearchFinish={this.handleSearchFinish.bind(this)}/> < CardList users={this.state.users}/> </>)
+        return (<> <Form
+            onSearchFinish={this
+            .handleSearchFinish
+            .bind(this)}/> < CardList users = {
+            this.state.users
+        } /> </>)
     }
 }
 export default App;
